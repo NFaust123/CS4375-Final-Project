@@ -184,7 +184,7 @@ X_test = sc_X.fit_transform(X_test)
 
 clf = ComplementNB()
 clf.fit(X_train, y_train)
-prediction = clf.predict(X_validation)
+prediction = clf.predict(X_test)
 
 
 
@@ -201,11 +201,16 @@ plt.show()
 # after SoundSleep column is dropped:
 
 
-print(classification_report(y_validation, prediction))
+print(classification_report(y_test, prediction))
+
+# obtain the ROC-AUC value of the model
+fpr, tpr, thresholds = metrics.roc_curve(y_test, prediction)
+print(metrics.auc(fpr, tpr))
+
 
 
 # obtain confusion matrix for prediction
-cm = confusion_matrix(y_validation, prediction)
+cm = confusion_matrix(y_test, prediction)
 sns.heatmap(cm,
             annot=True,
             fmt='g',
