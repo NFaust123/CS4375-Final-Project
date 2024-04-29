@@ -251,6 +251,10 @@ test_predictions = gridsearch.predict(X_test)
 print("Classification report for Test Set: ")
 print(classification_report(y_test, test_predictions))
 
+# obtain the ROC-AUC value of the model
+fpr, tpr, thresholds = metrics.roc_curve(y_test, test_predictions)
+print(metrics.auc(fpr, tpr))
+
 cm = confusion_matrix(y_test, test_predictions)
 sns.heatmap(cm,
             annot=True,
